@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "postManage";
+    var bb = ViewBag.board;
+    Layout = "~/Areas/Admin/Views/Shared/_PartialPage1.cshtml";
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-1.7.1.js"></script>
+
+
+<script type="text/javascript">
+    function choose() {
+        var kw;
+        var myselect = document.getElementById("prodlist");
+        var index = myselect.selectedIndex;
+        kw = myselect.options[index].value;
+        $.ajax({
+            url: '/aboutPost/postBoard',
+            type: 'POST',
+            data:{kw:kw},
+            async: false,
+            success: function (data) {
+                 
+                $("#selece").html(data)
+            },
+            error: function (data) {
+                alert("error") 
+            }
+
+        })
+    
+    }
+    function search()
+    {
+        var sw;
+        sw = $("#search").val();
+        $.ajax({
+            url: '/aboutPost/postBoard',
+            type: 'POST',
+            data: { sw: sw },
+            async: false,
+            success: function (data) {
+                
+                $("#selece").html(data)
+            },
+            error: function (data) {
+                alert("error")
+            }
+
+        })
+    }
+</script>
+<div style="width: 100%; height: 100%; display: flex; justify-content: center">
+    <div style="width: 90%; height: 100%; flex-direction: column">
+
+        <div id="option" name="option" style="width: 100%; display: flex; justify-content: center; background-color: #e3ebfe; margin: 10px 0px 8px 0px">
+            帖子管理
+        </div>
+        <div style="background-color: #e3ebfe; padding-top: 10px" id="boardDiv" name="boardDiv">
+
+            <div style="flex-direction: row">
+                <select id="prodlist" name="prodlist" onchange="choose()" @*onchange="'/aboutPost/postBoard?kw=' + encodeURIComponent(this.value)"*@>
+                    <option value="all">全部板块</option>
+                    @foreach (var item in bb)
+                    { 
+                        <option value="@item.B_NAME" >@item.B_NAME</option>
+                    }
+                </select>
+
+                <div style="display: inline-block; width: 325px">
+                    <input style="width: 280px" id="search" type="text" name="search"   />
+                </div>
+                <div id="login_click" style="display: inline-block; width: 80px; height: 35px;">
+                    <input type="submit" id="button" name="button" class="Button SearchBar-askButton Button--primary Button--blue" value="查找" onclick="search()" />
+
+                </div>
+            </div>
+            <div id="selece" name="selece">
+                 
+                @Html.Action("postBoard")
+
+            </div>
+
+        </div>
+    </div>
+</div>

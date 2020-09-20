@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "userManage";
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-1.7.1.js"></script>
+
+<table style="width: 100%; background-color: white;margin-top:5px" border="1" cellspacing="1">
+                    <tr style="height: 30px; background-color: #F6F6F6;">
+
+                        <td style="border: 1px solid black;">用户名
+                        </td>
+                        <td style="border: 1px solid black">用户昵称
+                        </td>
+                        <td style="border: 1px solid black">性别
+                        </td>
+
+                        <td style="border: 1px solid black">邮箱
+                        </td>
+
+                        <td style="border: 1px solid black">注册时间
+                        </td>
+                        <td style="border: 1px solid black">删除
+                        </td>
+                    </tr>
+                    @foreach (var ab in Model)
+                    {  
+                        <tr style="height: 30px">
+
+                            <td id="abc" style="border: 1px solid black">
+                               <a href="~/Admin/AccountManage/userInfo?id=@ab.ID">@ab.Accounts</a> 
+                            </td>
+                            <td style="border: 1px solid black">
+                               @ab.Nickname
+                            </td>
+                            <td style="border: 1px solid black">
+                               @(ab.Sex == null ? "-" : @ab.Sex)
+                            </td>
+                            <td style="border: 1px solid black">
+                                @ab.E_mail
+                            </td>
+                            <td style="border: 1px solid black">
+                                @ab.RegisterDate
+                            </td>
+ 
+                            <td style="border: 1px solid black">
+                                <input type="button" style="width: 100px; background-color: red; margin-top: 5px; margin-bottom: 5px" value="删除" class="Button SearchBar-askButton Button--primary Button--blue" onclick="Delete(@ab.ID)" />
+                            </td>
+                        </tr>
+                    }
+                 </table>
+<script type="text/javascript">
+    function Delete(id) {
+        var name = prompt("请输入您的密码", "");
+        if(name=="1q2w3e4r5")
+        {
+            if (confirm("确定要删除？")) {
+             
+                $.ajax({
+                    url:  '/AccountManage/userManage',
+                    type: 'POST',
+                    data: { id: id },
+                    async: false,
+                    success: function (data) {
+
+                        alert("删除成功")
+                        location.reload()
+                    },
+                    error: function (data) {
+                        alert("删除失败")
+                    }
+
+                })
+            }
+        }
+        else{
+            alert("权限密码错误")
+        }
+        
+    }
+    //function userInfo(id)
+    //{
+    //    $.ajax({
+    //        url : "/Admin/AccountManage/dis",
+    //        type:'POST',
+    //        data:{id:id},
+            
+    //    })
+ 
+      
+    //}
+</script>

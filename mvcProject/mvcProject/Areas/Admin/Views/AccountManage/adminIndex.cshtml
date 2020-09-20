@@ -1,0 +1,93 @@
+﻿@model mvcProject.Areas.Admin.Models.adminAddModel
+@{
+    ViewBag.Title = "adminIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_PartialPage1.cshtml";
+} 
+
+
+<div style="width: 100%; height: 100%; display: flex; justify-content: center">
+    <div style="width: 90%; height: 100%; flex-direction: column">
+
+        <div id="option" name="option" style="width: 100%; display: flex; justify-content: center; background-color: #e3ebfe; margin: 10px 0px 8px 0px">
+            管理员账号
+        </div>
+
+
+        <div style="background-color: #e3ebfe; padding-top: 10px" id="boardDiv" name="boardDiv">
+            
+     
+        @Html.AntiForgeryToken()
+       @Html.ValidationSummary()
+        @Html.ValidationSummary(true)
+            <form  style="display:flexbox;flex-direction:row ">
+                @Html.TextBoxFor(model => model.Account, new { @placeholder="请输入管理员账号"})
+                @Html.ValidationMessageFor(model => model.Account)
+
+                @Html.TextBoxFor(model => model.Password, new { @placeholder="请输入管理员密码"} )
+                @Html.ValidationMessageFor(model => model.Password)
+                 
+                <input id="Submit1" type="button" onclick="addAdmin()"  value="添加管理员账号" />
+            </form>
+
+            <div id="selece" name="selece">
+                @Html.Action("aManage")
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function addAdmin() {
+        if ($("#Account").val() == "" || $("#Password").val() == "") {
+            alert("填全了，懒狗")
+        }
+        else {
+            var nr = document.getElementById("neirong");
+            var a = 0;
+            var data = {
+                model: {
+
+                    Account: $("#Account").val(),
+                    Password: $("#Password").val(),
+                }
+            }
+            for (var i = 1; i < nr.rows.length; i++) {
+                a++;
+                if (nr.rows[i].cells[0].innerText == $("#abc").val()) {
+                    break;
+                }
+
+            }
+
+            if (a == nr.rows.length - 1) {
+                if (confirm("确定要新增？")) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/AccountManage/adminIndex',
+                        data: JSON.stringify(data),
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+
+                        },
+                        error: function (mes) {
+                            location.reload();
+                        }
+
+                    })
+                }
+            }
+
+
+            else {
+                alert("管理已存在");
+
+            }
+
+        }
+        
+    }
+</script>
+ @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

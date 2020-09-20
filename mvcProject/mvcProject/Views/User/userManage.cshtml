@@ -1,0 +1,72 @@
+﻿@model mvcProject.Models.LocalPasswordModel
+
+@{
+    ViewBag.Title = "userManage";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+
+<form style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center;" method="post">
+
+    <div style="display: flex; justify-content: center; margin-top: 50px">
+        <div>
+                    @Html.AntiForgeryToken()
+       @Html.ValidationSummary()
+        @Html.ValidationSummary(true) 
+
+
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.OldPassword)
+            </div>
+            <div class="editor-field" style="display: flex; flex-direction: column">
+                @Html.EditorFor(model => model.OldPassword)
+                @Html.ValidationMessageFor(model => model.OldPassword)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NewPassword)
+            </div>
+            <div class="editor-field" style="display: flex; flex-direction: column">
+                @Html.EditorFor(model => model.NewPassword)
+                @Html.ValidationMessageFor(model => model.NewPassword)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ConfirmPassword)
+            </div>
+            <div class="editor-field" style="display: flex; flex-direction: column">
+                @Html.EditorFor(model => model.ConfirmPassword)
+                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; display: flex; justify-content: space-around; margin-top: 80px; padding-left: -16px">
+        <input type="submit" style="width: 100px; height: 50px; margin-left: 80px" value="修改密码" class="Button SearchBar-askButton Button--primary Button--blue" />
+        <input type="button" onclick="out()" style="width: 100px; height: 50px; margin-right: 80px" value="退出登录" class="Button SearchBar-askButton Button--primary Button--blue" />
+    </div>
+
+
+</form>
+<script>
+    function out() {
+
+        if (confirm("确定退出账号")) {
+            sessionStorage.clear();
+            var url = "/Account/Account";
+            window.location = "/Account/Account";
+            window.history.go(-window.history.length);
+            window.location.href = url;
+            javascript: window.history.forward(1);
+            //history.pushState(null, null, document.URL);
+            //window.addEventListener('popstate', function () {
+            //    history.pushState(null, null, document.URL);
+            //});
+
+        }
+    }
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

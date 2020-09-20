@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "postManage";
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-1.7.1.js"></script>
+<script type="text/javascript">
+    function Delete(id) {
+
+        if (confirm("确定要删除？")) {
+            
+            $.ajax({
+                url: '/aboutPost/postBoard',
+                type: 'POST',
+                data: { dw: id },
+                async: false,
+                success: function (data) {
+
+                    alert("删除成功")
+                    location.reload()
+                },
+                error: function (data) {
+                    alert("删除失败")
+                }
+
+            })
+        }
+    }
+    
+</script>
+@helper Truncate(string input, int length)
+{
+    if (input.Length <= length)
+    {
+    @input
+    }
+    else
+    {
+    @input.Substring(0, length)<text>......</text>
+    }
+}
+<table style="width: 100%; background-color: white" border="1" cellspacing="1">
+                    <tr style="height: 30px; background-color: #F6F6F6;">
+
+                        <td style="border: 1px solid black;">用户名
+                        </td>
+                        <td style="border: 1px solid black">发帖标题
+                        </td>
+                        <td style="border: 1px solid black">发帖内容
+                        </td>
+                        <td style="border: 1px solid black">点击数 
+                        </td>
+                        <td style="border: 1px solid black">所在板块
+                        </td>
+
+                        <td style="border: 1px solid black">发帖时间
+                        </td>
+                        <td style="border: 1px solid black">删除
+                        </td>
+                    </tr>
+                    @foreach (var aa in Model)
+                    {  
+                        <tr style="height: 30px">
+
+                            <td id="abc" style="border: 1px solid black">
+                               <a href="/Admin/AccountManage/userInfo?id=@aa.P_POSTERID"> @aa.P_POSTER</a>
+                            </td>
+                            <td style="border: 1px solid black">
+                               <a href="/Admin/aboutPost/Apost?id=@aa.P_ID">@aa.P_Title</a>
+                            </td>
+                            <td style="border: 1px solid black">
+                                <a href="/Admin/aboutPost/Apost?id=@aa.P_ID">@Truncate(@aa.P_CONTENTS, 10)</a>
+                            </td>
+                            <td style="border: 1px solid black">
+                                @aa.P_CLICK
+                            </td>
+                            <td style="border: 1px solid black">
+                                @aa.P_BOARDNAME
+                            </td>
+                            <td style="border: 1px solid black">
+                                @aa.P_DATETIME
+                            </td>
+                            <td style="border: 1px solid black">
+                                <input type="button" style="width: 100px; background-color: red; margin-top: 5px; margin-bottom: 5px" value="删除" class="Button SearchBar-askButton Button--primary Button--blue" onclick="Delete(@aa.P_ID)" />
+                            </td>
+                        </tr>
+                     
+                    }
+
+                </table>

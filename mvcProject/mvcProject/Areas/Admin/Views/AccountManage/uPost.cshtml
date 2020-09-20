@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "uPost";
+}
+@helper Truncate(string input, int length)
+{
+    if (input.Length <= length)
+    {
+    @input
+    }
+    else
+    {
+    @input.Substring(0, length)<text>......</text>
+    }
+}
+
+<div style="width: 100%; height: 100%; display: flex; justify-content: center;">
+    <div style="width: 95%; height: 100%-10px; background-color: yellow; margin-top: 10px; overflow-y: auto">
+        @foreach (var aa in Model)
+        {  
+ 
+            <div style="width: 100%; height: 190px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid gray; background-color: white; flex-direction: column">
+
+                <div style="width: 90%; height: 150px; display: flex; flex-direction: column; display: block" id="file">
+                    <a href="/Admin/aboutPost/Apost?id=@aa.P_ID">
+                        @*title*@
+                        <div id="content" style="width: 100%; height: 30px; display: flex; align-items: center;">
+                            @aa.P_Title
+
+                        </div>
+                        @*count*@
+                        <div style="width: 100%; height: 70px; display: flex; flex-direction: row">
+                            @*image*@
+
+                            <img id="img" name="img"  style="height:100%;width:70px;display:@(aa.P_PICTURE == "" ? "none" : "block");padding-right:20px" src="~/unload/postPicture/@aa.P_PICTURE" />
+
+                            @*content*@
+                            <div style="height: 100%; width: 100%; display: flex; flex-direction: column;text-align:left">
+                                @aa.P_POSTER : @Truncate(@aa.P_CONTENTS, 100)
+                            </div>
+                        </div>
+                        @*other*@
+                        <div style="width: 100%; height: 30px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center">
+
+
+
+                            <div>
+                                @aa.P_DATETIME
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+
+            </div>
+        }
+    </div>
+</div>

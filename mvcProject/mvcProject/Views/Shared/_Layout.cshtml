@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.UserName = Session["userName"];
+    ViewBag.Logo = Session["userLogo"];
+}
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <link href="~/Content/button.css" rel="stylesheet" />
+     
+    <style type="text/css">
+        .auto-style1 {
+            height: 57px;
+        }
+        .fra {
+           width:100%;
+           height:100%;
+           
+        }
+    </style>
+    <link href="~/Content/common.css" rel="stylesheet" />
+    <link href="~/Content/mode.css" rel="stylesheet" />
+</head>
+
+<body style="height: 100%; width: 100%; background-color: #F6F6F6">
+   @*导航*@
+    <div style="height: 55px; width: 100%; background-color: #fff">
+        
+            <div style="height: 55px; width: 1005px; background-color: #fff; margin: auto">
+
+                <div style="width: 90px; height: 50px; display: inline-block">
+                    <img src="~/Image/logo.png" />
+                </div>
+
+                <div style="width: 190px; height: 50px; display: inline-block; margin: auto;">
+                    <table width="100%" height="100%" cellspadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center" valign="middle">
+                                <div  style="width: 60px; display: inline-block" class="auto-style3">
+                                    @Html.ActionLink("首页","Index",  "Home" )
+                                     
+                                </div>
+                                <div style="width: 60px;display: inline-block" class="auto-style4">
+                                    <a href="~/Home/Index?type=click">热榜</a>
+                                    
+                                     
+                                </div>
+                                <div style="width: 60px;display: inline-block" class="auto-style5">
+                                    @Html.ActionLink("关注", "home", "Index", new { type="like" })
+                                     
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="width: 430px; height: 50px; display: inline-block; margin: auto">
+                     <form action="~/Home/Index" method="post" width="100%" height="100%" cellspadding="0" cellspacing="0" style="margin-top:10px" >
+                      <table width="100%" height="100%" cellspadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center" valign="middle">
+                                <div style="display: inline-block; width: 325px">
+                                    <input style="width: 280px" id="Text1" type="text" name="Text1"/>
+                                </div>
+                                <div id="login_click" style="display: inline-block; width:80px;height:35px; ">
+                                  <input type="submit" id="button" name="button" class="Button SearchBar-askButton Button--primary Button--blue" value="查找" /> 
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+
+                <div style="float:right;display:flex;flex-direction:row;margin-top:10px;margin-right:50px">
+                    <div><a href="~/User/Index"><img style="width:40px;height:40px;border-radius:3px" src="~/unload/userLogo/@ViewBag.Logo"/></a></div>
+                    <div style="display:flex;align-items: center;padding-left:10px" title="个人中心">@ViewBag.UserName</div>
+                </div>
+            </div>
+        
+    </div>
+    @*主体*@
+    <div style=" width:100%;background-color:#f6f6f6;margin-top:10px">
+       <div style=" width:70%;background-color:#f6f6f6;margin:auto; display:flex;flex-direction:row">
+           @*左*@
+          @RenderBody()
+            @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+           <div style="height:400px;display:flex;flex-direction:column; background-color:white;margin-left:10px">
+               
+              @*<div id="banner" style="height:200px;width:100%">
+                 <div class="Slide" style="height:200px;width:100%">
+                    <div id="slideBox" class="slideBox" style="height:200px;width:100%">
+			            <div class="hd" >
+				           <ul></ul>
+			               </div>
+			               <div class="bd">
+				           <ul>
+					          <li><a href="#" ><img src="~/Image/17184556317.jpg" /></a></li>
+					          <li><a href="#" ><img src="~/Image/2.jpg" /></a></li>
+					          <li><a href="#" ><img src="~/Image/2.jpg" /></a></li>
+				          </ul>
+			              </div>
+			          <a class="prev" href="javascript:void(0)"></a>
+			          <a class="next" href="javascript:void(0)"></a>
+		           </div>
+		        <script type="text/javascript">
+		          jQuery(".slideBox").slide({ titCell: ".hd ul", mainCell: ".bd ul", effect: "leftLoop", autoPlay: true, autoPage: true, triggerTime: 1000, interTime: 5000 });
+		        </script>
+                </div>
+               <div class="banner_bg" style="height:200px;width:100px"></div>
+            </div>*@
+               <div style="border-bottom:1px solid gray;width:100%;height:80px;">
+               <div style="width:33%;height:80px;float:left;border-right:1px solid gray;  ">
+                  <a href="/Home/Write"><img style="width:100%;height:80px; " src="~/Image/1111.png"/></a> 
+                    
+               </div>
+               <div style="width:33%;height:80px;float:left;border-right:1px solid gray; ">
+                   <img style="width:100%;height:80px; " src="~/Image/1111.png"/>
+                 
+               </div>
+               <div style="width:33%;height:80px;float:left;text-align:center">
+                   <img style="width:100%;height:80px; " src="~/Image/1111.png"/>
+                    
+               </div>
+               </div>
+           </div>
+       </div>
+    </div>
+
+
+</body>
+</html>
+    

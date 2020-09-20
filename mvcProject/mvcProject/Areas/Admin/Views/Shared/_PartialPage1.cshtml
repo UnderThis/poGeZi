@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        div {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body {
+            padding: 0px;
+            margin: auto;
+            text-align: center;
+            background-color: buttonshadow;
+        }
+
+        dl.bitem {
+            width: 148px;
+            margin: 0px 0px 5px 4px;
+        }
+
+            dl.bitem dt {
+                background: gray;
+                height: 35px;
+                line-height: 26px;
+                text-align: center;
+                cursor: pointer;
+                color: #ffffff;
+            }
+
+
+                dl.bitem dt b {
+                    color: #ffffff;
+                }
+
+            dl.bitem dd {
+                padding: 3px 3px 3px 3px;
+                background-color: #fff;
+            }
+
+        .fllct {
+            float: left;
+            width: 90px;
+        }
+
+        .flrct {
+            padding-top: 3px;
+            float: left;
+        }
+
+        div.items {
+            line-height: 22px;
+            background: url(../images/frame/arr4.gif) no-repeat 10px 9px;
+        }
+
+        span.items {
+            padding: 10px 0px 10px 22px;
+            background: url(../images/frame/arr4.gif) no-repeat 10px 12px;
+        }
+
+        ul {
+            padding-top: 3px;
+        }
+
+        li {
+            height: 22px;
+        }
+
+        .sitemu li {
+            padding: 0px 0px 0px 22px;
+            line-height: 24px;
+            background: url(../images/frame/arr4.gif) no-repeat 10px 9px;
+        }
+    </style>
+    <link href="~/Content/button.css" rel="stylesheet" />
+    <link href="~/Content/common.css" rel="stylesheet" />
+    <link href="~/Content/mode.css" rel="stylesheet" />
+     
+    <link rel="stylesheet" href="~/skin/css/base.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <script language='javascript'>var curopenItem = '1';</script>
+    <script language="javascript" type="text/javascript" src="~/skin/js/frame/menu.js"></script>
+</head>
+<body style="margin: 0px;">
+    <div style="width: 100%; height: 60px; background-color: #0084ff; display: flex; flex-direction: row;border-bottom:1px solid white">
+        <div style="width: 50%; height: 100%; color: white; font-size: 30px; font-weight: bold; display: flex; align-items: center; margin-left: 20px;">
+            管理系统
+        </div>
+        <div style="width: 50%; margin-right: 10px; justify-content: flex-end; display: flex; font-size: 12px; color: white">
+            [@Html.RouteLink("注销退出", "Default", new { Controller = "Account", Action = "Account" }, new { @style = "color:white" })]
+        </div>
+    </div>
+    <div style="width: 100%; background-color: white; height: 100%; display: flex; flex-direction: row">
+        <div style="width: 12.8%; height: 100%; background-color: #0084ff">
+            <table width='99%' height="100%" border='0' cellspacing='0' cellpadding='0' style="margin-top:10px" >
+                <tr>
+                    <td style="height: 700px;" valign="top">
+                        <!-- Item 1 Strat -->
+                        <dl class='bitem'>
+                            <dt class="st" onclick='showHide("items1_1")'><b>公告管理</b></dt>
+                            <dd style='display: block' class='sitem' id='items1_1'>
+                                <ul class='sitemu'>
+                                    <li>
+                                        @Html.ActionLink("添加公告", "notice", "Admin")
+                                    </li>
+                                    <li>@Html.ActionLink("管理公告", "noticeManager", "Admin")</li>
+
+                                </ul>
+                            </dd>
+                        </dl>
+
+                        <dl class='bitem'>
+                            <dt onclick='showHide("items3_1")'><b>帖子管理</b></dt>
+                            <dd style='display: block' class='sitem' id='items3_1'>
+                                <ul class='sitemu'>
+                                    <li>@Html.ActionLink("帖子管理", "postManage", "aboutPost")</li>
+                                    <li>@Html.ActionLink("板块管理", "boardManager", "aboutPost")</li>
+
+                                </ul>
+                            </dd>
+                        </dl>
+
+ 
+
+
+
+
+
+
+                        <dl class='bitem'>
+                            <dt onclick='showHide("items6_1")'><b>账号管理</b></dt>
+                            <dd style='display: block' class='sitem' id='items6_1'>
+                                <ul class='sitemu'>
+                                    <li>@Html.ActionLink("用户账号", "Index", "AccountManage")</li>
+                                    <li>@Html.ActionLink("管理员账号", "adminIndex", "AccountManage") </li>
+ 
+
+
+                                </ul>
+                            </dd>
+                        </dl>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="width: 86.4%; height: 100%; DISPLAY: flex; justify-content:center;">
+            @RenderBody()
+
+            @Scripts.Render("~/bundles/jquery")
+            @RenderSection("scripts", required: false)
+        </div>
+    </div>
+
+
+</body>
+</html>

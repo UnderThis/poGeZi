@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "adminManage";
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-1.7.1.js"></script>
+<script type="text/javascript">
+    function Delete(id) {
+        var name = prompt("请输入您的密码", "");
+        if(name=="woshiwxj1357")
+        {
+            if (confirm("确定要删除？")) {
+             
+                $.ajax({
+                    url:  '/AccountManage/aManage',
+                    type: 'POST',
+                    data: { id: id },
+                    async: false,
+                    success: function (data) {
+
+                        alert("删除成功")
+                        location.reload()
+                    },
+                    error: function (data) {
+                        alert("删除失败")
+                    }
+
+                })
+            }
+        }
+        else{
+            alert("权限密码错误")
+        }
+        
+    }
+ 
+</script>
+<table style="width: 100%; background-color: white; margin-top: 5px" border="1" cellspacing="1" id="neirong">
+    <tr style="height: 30px; background-color: #F6F6F6;">
+
+        <td style="border: 1px solid black;">管理员账号
+        </td>
+        <td style="border: 1px solid black">管理员密码
+        </td>
+        <td style="border: 1px solid black">删除
+        </td>
+    </tr>
+    
+    @foreach (var ab in Model)
+    {  
+        <tr style="height: 30px">
+            
+            <td id="abc" style="border: 1px solid black">
+                @ab.userName
+            </td>
+            <td style="border: 1px solid black" >
+                @ab.password
+            </td>
+
+            <td style="border: 1px solid black">
+                <input type="button" style="width: 100px; background-color: red; margin-top: 5px; margin-bottom: 5px" value="删除" class="Button SearchBar-askButton Button--primary Button--blue" onclick="Delete(@ab.ID)" />
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "userInfo";
+    var aa = Session["uid"];
+    Layout = "~/Areas/Admin/Views/Shared/_PartialPage1.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <link rel="stylesheet" href="`/skin/css/base.css" type="text/css" />
+
+    <script language="javascript" type="text/javascript" src="`/skin/js/frame/menu.js"></script>
+    <link href="~/Content/button.css" rel="stylesheet" />
+
+    <style type="text/css">
+        .auto-style1 {
+            height: 57px;
+        }
+
+        .fra {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        
+    </script>
+</head>
+
+<body style="height: 100%; width: 100%; background-color: #F6F6F6;">
+     
+        <img onclick="history.go(-1);" style="height: 30px; width: 30px;top: 68px; left: 170px; position: absolute;" src="~/Image/arrow-back.png" /> 
+
+    <div style="display: flex; justify-content: center; margin-top: 20px; width: 100%">
+        <div style="height: 500px; width: 70%; background-color: white; display: flex; flex-direction: row; border: 1px solid gray;  ">
+            <div style="height: 100%; width: 20%; border-right: 1px solid gray">
+                <div style="width: 100%; height: 50px; border-bottom: 1px solid gray; align-items: center; display: flex; justify-content: center; font-size: large; font-weight: bold"><a onclick="user(1)">个人信息</a></div>
+                <div style="width: 100%; height: 50px; border-bottom: 1px solid gray; align-items: center; display: flex; justify-content: center; font-size: large; font-weight: bold"><a onclick="user(2)">发帖管理</a></div>
+            </div>
+            <div id="info" name="info" style="display: flex; justify-content: center; width: 100%">
+                @Html.Action("info")
+            </div>
+
+
+        </div>
+    </div>
+    <div>
+    </div>
+</body>
+</html>
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script>
+    function user(id) {
+        switch (id) {
+            case 1:
+                $.ajax({
+                    url: "/Admin/AccountManage/info",
+                    type: 'POST',
+                    success: function (data) {
+                         
+                        $("#info").html(data);
+                    },
+                    error: function (data) {
+                        alert(data.responseText)
+                    }
+
+                })
+                break;
+            case 2:
+                $.ajax({
+                    url: "/Admin/AccountManage/uPost",
+                    type: 'POST',
+                    success: function (data) {
+                         
+                        $("#info").html(data);
+                    },
+                    error: function (data) {
+                        alert(data.responseText)
+                    }
+
+                })
+                break;
+        }
+
+    }
+     
+</script>

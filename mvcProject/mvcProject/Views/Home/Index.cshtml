@@ -1,0 +1,77 @@
+﻿@model  IEnumerable<mvcProject.Models.POST>
+
+
+@{
+    var bad = ViewBag.board;
+    ViewBag.Title = "Index";
+}
+
+
+@helper Truncate(string input, int length)
+{
+    if (input.Length <= length)
+    {
+    @input
+    }
+    else
+    {
+    @input.Substring(0, length)<text>......</text>
+    }
+}
+<div style="height: 100%; width: 70%; background-color: white;">
+    @*上*@
+    <div class="Menu_style" style="height: 60px; width: 100%; background-color: white; margin: auto; border-bottom: 1px solid gray">
+        <ul id="nav" style="height: 100%;">
+
+            <li class="mainlevel" id="Li2" style="height: 100%; display: flex; justify-content: center; align-items: center;">@Html.ActionLink("首页", actionName: "Index", controllerName: "Home", routeValues: new { type = "all" }, htmlAttributes: new { @class = "Activity" })@*<a href="~/Home/Index?type=all" class="Activity" >首页</a>*@
+            </li>
+            @foreach (var dd in bad)
+            {
+                <li class="mainlevel" id="Li2" style="height: 100%; display: flex; justify-content: center; align-items: center;">
+                    <a href="@Url.Action("Index", new { type=@dd.B_ID})"  class = "Activity">@dd.B_NAME</a>
+                     
+                </li> 
+            }
+ 
+
+        </ul>
+    </div>
+
+    @*下*@
+    <div style="margin-top: 61px; width: 100%; height: 100%">
+        @foreach (var aa in Model)
+        {  
+ 
+            <div style="width: 100%; height: 190px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid gray; background-color: white">
+
+                <a href="~/Home/Post?postId=@aa.P_ID"  style="width:100%;height:190px;display:flex;justify-content: center; align-items: center;border-bottom:1px solid gray;background-color:white">
+                    <div style="width: 90%; height: 150px; display: flex; flex-direction: column">
+                        @*title*@
+                        <div id="content" style="width: 100%; height: 30px; display: flex; align-items: center;">
+                            @aa.P_Title
+
+                        </div>
+                        @*count*@
+                        <div style="width: 100%; height: 90px; display: flex; flex-direction: row">
+                            @*image*@
+
+                            <img id="img" name="img"  style="height:100%;width:90px;display:@(aa.P_PICTURE == "" ? "none" : "block");padding-right:20px" src="~/unload/postPicture/@aa.P_PICTURE" />
+
+                            @*content*@
+                            <div style="height: 100%; width: 100%; display: flex; flex-direction: column;">
+                                @aa.P_POSTER : @Truncate(@aa.P_CONTENTS, 100)
+                            </div>
+                        </div>
+                        @*other*@
+                        <div style="width: 100%; height: 30px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center">
+                            <div>
+                                @aa.P_DATETIME
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        }
+    </div>
+</div>

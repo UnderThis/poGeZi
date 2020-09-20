@@ -1,0 +1,70 @@
+﻿ 
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_PartialPage1.cshtml";
+}
+<script type="text/javascript">
+    function Delete(id) {
+        var name = prompt("请输入您的密码", ""); 
+        if (confirm("确定要删除？")) {
+            
+            $.ajax({
+                url: '/AccountManage/uDelete',
+                type: 'POST',
+                data: { pw: name,id:sw },
+                async: false,
+                success: function (data) {
+
+                    alert("删除成功")
+                    location.reload()
+                },
+                error: function (data) {
+                    alert("删除失败")
+                }
+
+            })
+        }
+    }
+    function search()
+    {
+      
+        var sw;
+        sw = $("#search").val();
+        $.ajax({
+            url: '/AccountManage/userManage',
+            type: 'POST',
+            data: { name:sw },
+            async: false,
+            success: function (data) {
+                $("#selece").html(data)
+            },
+            error: function (data) {
+                alert("key")
+                location.reload()   
+            }
+
+        })
+    }
+</script>
+<div style="width: 100%; height: 100%; display: flex; justify-content: center">
+    <div style="width: 90%; height: 100%; flex-direction: column">
+
+        <div id="option" name="option" style="width: 100%; display: flex; justify-content: center; background-color: #e3ebfe; margin: 10px 0px 8px 0px">
+            用户账号
+        </div>
+
+        <div style="background-color: #e3ebfe; padding-top: 10px" id="boardDiv" name="boardDiv">
+                <div style="display: inline-block; width: 325px">
+                    <input style="width: 280px" id="search" type="text" name="search"   />
+                </div>
+                <div id="login_click" style="display: inline-block; width: 80px; height: 35px;">
+                    <input type="submit" id="button" name="button" class="Button SearchBar-askButton Button--primary Button--blue" value="查找" onclick="search()" />
+
+                </div>
+            <div id="selece" name="selece">
+                @Html.Action("userManage")
+            </div>
+        </div>
+    </div>
+</div>

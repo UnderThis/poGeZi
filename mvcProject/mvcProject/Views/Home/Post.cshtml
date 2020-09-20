@@ -1,0 +1,101 @@
+﻿@{
+    var aa = ViewBag.post;
+    ViewBag.Title = "Post";
+     
+}
+<script src="~/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script type="text/javascript" language="javascript">
+
+    //function getUserInfo() {
+    //异步显示局部刷新未成功
+
+    //    $.ajax({
+
+    //        success: function (sesponseTest) {
+    //            var aa = new Date();
+    //            pc1.innerHTML = aa.toLocaleDateString();
+    //            UpdateTargetId = "pc1"
+    //        }
+    //    });
+    //}
+
+    function getUserInfo() {
+        alert('保存成功！');
+        setInterval(function () {
+            $("#pc1").load(location.href + " #pc1>*", "");
+        }, 100);
+        window.clearInterval(getUserInfo)
+    }
+
+
+    //setInterval(function () {
+    //    $("#pc1").load(location.href + " #pc1>*", "");
+    //}, 1000);//计时刷新，问题比较大，需要更新
+</script>
+
+
+<div style="width: 70%; background-color: white; border-bottom: 1px solid #ADADAD; height: 100%">
+    @*上*@
+    <div class="Menu_style" style="height: 60px; width: 100%; background-color: white; margin: auto; border-bottom: 1px solid gray">
+        <div style="width: 100%; text-align: center; font-size: 32px; font-weight: bold">@aa.P_Title</div>
+        <div style="width: 100%; text-align: right; font-size: 10px; color: #ADADAD; margin-right: 20px">作者：@aa.P_POSTER 时间：@aa.P_DATETIME  </div>
+    </div>
+    @*下*@
+    <div style="width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column">
+        <div style="width: 85%; font-size: 15px; line-height: 2em; margin-top: 10px">&nbsp&nbsp&nbsp&nbsp  @aa.P_CONTENTS</div>
+        <div>
+            <img style="width:150px;height:150px;object-fit: scale-down;display:@(aa.P_PICTURE == "" ? "none" : "block")" src="~/unload/postPicture/@aa.P_PICTURE"/>
+        </div>
+        <div style="width: 100%; text-align: right; font-size: 10px; color: #ADADAD; border-bottom: 1px solid gray; border-top: 1px solid gray">点击数：@aa.P_CLICK</div>
+        @*评论*@
+        <div style="width: 100%; height: 100%">
+            <form id="form1" action="/Home/postcomment" method="post" id="registSubmit">
+                <div style="width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid gray;">
+                    <div style="width: 95%; height: 90%; display: flex; flex-direction: row;">
+                        <div style="width: 90%; height: 100%">
+                            <input style="width: 100%; height: 96%; border: 1px solid gray" name="comment" /></div>
+                        <div style="width: 10%; height: 100%">
+                            <button id="btnSub" name="btnSub" onclick="getUserInfo()" name="btnSub" style="width: 100%; height: 100%; border: 0; background-color: blue; border: 0; border-bottom-right-radius: 1px; border-top-right-radius: 1px">提交</button></div>
+                        @*                      
+                    <textarea id="content1" runat="server" cols="80" rows="8" style="visibility: hidden;
+                        width: 80%;max-height: 100%" placeholder="请输入正文不超过10000字"></textarea>&nbsp;</td>*@
+
+                    </div>
+
+
+                </div>
+            </form>
+
+            @foreach (var pc in Model)
+            {
+                <div style="width: 100%; display: flex; justify-content: center; align-items: center;" id="pc1" name="pc1">
+                    <div style="width: 95%; display: flex; flex-direction: column; border: 1px solid red">
+                        <div style="width: 100%; height: 25px; background-color: yellow; display: flex; flex-direction: row; align-items: center">
+                            <div>
+                                <img  style="width:25px;height:25px;border-radius:100%;background-color:red" src="~/unload/@pc.PC_PICTURE" /></div>
+
+                            <div style="text-align: left; font-size: 10px; color: #ADADAD; margin-left: 5px;">@pc.PC_COMMENTER</div>
+                            <div style="text-align: right; font-size: 10px; color: #ADADAD; margin-left: 5px;">@pc.PC_DATETIME</div>
+                        </div>
+                        <div style="width: 100%; font-size: 15px; line-height: 2em; margin-top: 10px">@pc.PC_CONTENTS</div>
+                        <div style="height: 25px; border-bottom: 1px solid gray; border-top: 1px solid gray; display: flex; justify-content: end">
+                            <div>赞&nbsp&nbsp</div>
+                            <div>踩&nbsp&nbsp</div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+

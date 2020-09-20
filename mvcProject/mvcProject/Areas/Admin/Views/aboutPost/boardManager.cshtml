@@ -1,0 +1,160 @@
+﻿@model mvcProject.Areas.Admin.Models.boardManager
+
+@{
+    ViewBag.Title = "boardManager";
+    var board = ViewBag.board;
+    Layout = "~/Areas/Admin/Views/Shared/_PartialPage1.cshtml";
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-1.7.1.js"></script>
+<script type="text/javascript">
+    function btn(id,name) {
+         
+        var as = document.getElementsByName("abc");
+        var a = 0;
+        var data = {
+            model: {    
+                B_ID:name,
+                B_NAME: $("#B_NAME").val(),
+                B_CONTENTS: $("#B_CONTENTS").val(),
+            }
+        };
+        switch (id) {
+            case 1:
+
+                
+                for (var i = 0; i < as.length; i++) {
+
+                    if (as[i].defaultValue == $("input[name=B_NAME]").val()) {
+                        break;
+                    }
+                    a++;
+                }
+                if (a == as.length) {
+                    if (confirm("确定要新增？")) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Admin/aboutPost/boardAdd/",               
+                            data: JSON.stringify(data),
+                            contentType: "application/json;charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                alert("新增成功");
+                                $("#boardDiv").html(data);
+                            }
+                        })
+                    }
+                }
+                else {
+                    alert("板块已存在");
+                }
+                break;
+            case 2:
+                if (confirm("确定要新增？")) {
+                    $.ajax({
+                        type: "post",
+                        url: "~/Admin/aboutPost/boardMod?id="+name,
+                        dataType:"text",
+                        success: function (result) {
+                            if (result == "true") {
+                                $.ligerDialog.error("该车辆已注册");
+                            }
+                        }
+                    });
+                }
+                break;
+            case 3:
+                if (confirm("确定要删除？")) {
+                        url = "/Admin/aboutPost/boardDel/";
+                        parameter = {id:name};
+                        $.post(url,parameter);
+                        alert("删除成功!");
+                        window.location = "/Admin/aboutPost/boardManager";
+                }
+                break;
+               
+        }
+        
+    }
+</script>
+<style>
+    .ee {
+    }
+</style>
+<div style="width: 100%; height: 100%; display: flex; justify-content: center">
+    <div style="width: 90%; height: 100%; flex-direction: column">
+
+        <div style="width: 100%; display: flex; justify-content: center; background-color: #e3ebfe; margin: 10px 0px 8px 0px">
+            板块管理
+        </div>
+        <div style="background-color: #e3ebfe" id="boardDiv" name="boardDiv">
+            <form  style="width: 100%; padding: 9px 0px 9px 0px; display: flex; justify-content: center;">
+                <table>
+                    <tr>
+                        <td>新增板块：
+                        </td>
+                        <td>
+                             @Html.EditorFor(model => model.B_NAME,new { @class="ee",@id="ertt",@name="ertt"})
+                             @Html.ValidationMessageFor(model => model.B_NAME)
+                        </td>
+                        <td style="padding-left: 10px;">新增板块说明：
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.B_CONTENTS)
+                            @Html.ValidationMessageFor(model=>model.B_CONTENTS)
+                        </td>
+                        <td style="padding-left: 10px;">
+                            <input type="submit" onclick="btn(1)" value="添加" />
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+           
+
+                <table style="width: 100%; background-color: white" border="1" cellspacing="1">
+                    <tr style="height: 30px; background-color: #F6F6F6;">
+                         
+                        <td style="border: 1px solid black; ">板块名称
+                        </td>
+                        <td style="border: 1px solid black">板块说明
+                        </td>
+                        <td style="border: 1px solid black">修改
+                        </td>
+                        <td style="border: 1px solid black">删除
+                        </td>
+                    </tr>
+                    @foreach (var aa in board)
+                    { <form method="post" action="~/Admin/aboutPost/boardMod?id=@aa.B_ID">
+                        <tr style="height: 30px">
+                            
+                            <td id="abc" style="border: 1px solid black">
+                                 <input id="abc" name="abc" style="display:none" value="@aa.B_NAME"   />
+                                @Html.TextBoxFor(model => model.B_NAME, new {Value=@aa.B_NAME })
+                                @Html.ValidationMessageFor(model=>model.B_NAME)
+                                
+                            </td>
+                            <td style="border: 1px solid black">
+                                @Html.TextBoxFor(model => model.B_CONTENTS, new {Value=@aa.B_CONTENTS })
+                                @Html.ValidationMessageFor(model=>model.B_CONTENTS)
+                                
+                            </td>
+                            <td style="border: 1px solid black">
+                                <input onclick="btn(2,@aa.B_ID)"   value="修改" style="background-color:#0084ff;color:white " type="submit"/>
+                            </td>
+                            <td style="border: 1px solid black">
+                                <input onclick="btn(3,@aa.B_ID)"    value="删除" style="background-color:red;color:white " type="button"/>
+                            </td>
+                        </tr>
+                    </form>
+                    }
+
+                </table>
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

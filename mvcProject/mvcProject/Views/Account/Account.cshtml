@@ -1,0 +1,162 @@
+﻿@model mvcProject.Models.LoginModel
+
+@{
+    Layout = null;
+     
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        .fo {
+         color:gray;
+         font-size:8px;
+          
+        }
+    </style>
+    <script language="javascript">
+        
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    </script>
+    <script>
+ 
+        function showalert() {
+            if (aa == true)
+            {
+                alrer('我是弹出框');
+            }
+            
+        }
+
+    </script>
+    <style>
+.logo {
+    width: 128px;
+    height: 81px;
+    margin-bottom: 24px;
+}
+
+      </style>  
+    <link href="~/Content/login.css" rel="stylesheet" />
+    <link href="~/Content/loginbody.css" rel="stylesheet" />
+    <link href="~/Content/button.css" rel="stylesheet" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width" />
+    <title>Account</title>
+</head>
+<img style="height:100%;width:100%;background-image:url( '../Image/2.jpg' );background-size:cover;display:flex; ;justify-content: center;align-items: center;flex-direction:column"  >
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+      <div style="height:120px;width:100%; display:flex; ;justify-content: center;  " class="head">
+     <img  style="margin:auto" class="logo" src="~/Image/logo (2).png" >
+    </img>
+          </div>
+    <div style="width:100%;height:100%;display:flex; justify-content: center;align-items: center;">
+            <div style="width:375px;height:375px;background-color:white ;box-shadow:2px 2px 10px #909090;display:flex; justify-content: center;align-items: center;">
+        <div style="width:95%;height:95%;display:flex;flex-direction:column">
+            
+             <div class=" " style="text-align:center; height:60px;line-height:60px">
+                 <div  >给爷登录</div>
+             </div>
+                          
+             <div style="background-color: #0084ff;width:100%;height:4px" ></div>
+            
+             <form action="/Account/Account" method="post">
+                 <div class="SignFlowInput SignFlow-accountInputContainer" style="margin-top:10px">
+                      <label class="SignFlow-accountInput Input-wrapper">
+                          <input id="Accounts" name="Accounts" type="text" class="Input"    placeholder="账号"  />
+                           @Html.ValidationMessageFor(model => model.Accounts)
+                        
+                        </label>
+                  </div>
+                   <div class="SignFlowInput SignFlow-smsInput"style="margin-top:10px">
+                        <label class="Input-wrapper">
+                        <input  id="password" name="password" type="password" class="Input" placeholder="密码"  />
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </label>
+                   </div>
+                   <div>
+                         
+                        <input   type="submit" class="Button SignFlow-submitButton Button--primary Button--blue" value="登录" onclick="showalert()" />
+                        <div class="fo" style="text-align:right; ">@Html.ActionLink("点击注册", "Register" )</div>
+                  </div>
+             </form> 
+          
+                
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*   <div style="width:200px"> 
+    @using (Html.BeginForm()) {
+        @Html.ValidationSummary(true)
+    
+        <fieldset>
+            <legend>LoginModel</legend>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Accounts)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Accounts)
+                @Html.ValidationMessageFor(model => model.Accounts)
+            </div>
+    
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Password)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+    
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    }
+    </div>*@
+    <div>
+        
+    </div>
+</>
+</html>
